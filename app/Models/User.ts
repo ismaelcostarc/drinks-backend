@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Drink from './Drink'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -14,6 +15,9 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken: string | null
+
+  @manyToMany(() => Drink)
+  public drinks: ManyToMany<typeof Drink>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
