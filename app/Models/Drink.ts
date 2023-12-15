@@ -13,10 +13,10 @@ export default class Drink extends BaseModel {
   public description: string;
 
   @column()
-  public categoriaId: number;
+  public categoryId: number
 
   @belongsTo(() => Category)
-  public category: BelongsTo<typeof Category>;
+  public category: BelongsTo<typeof Category>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

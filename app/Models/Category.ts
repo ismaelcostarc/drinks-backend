@@ -12,9 +12,6 @@ export default class Category extends BaseModel {
   @column()
   public description: string;
 
-  @hasMany(() => Drink)
-  public drinks: HasMany<typeof Drink>;
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
