@@ -25,14 +25,15 @@ Route.group(() => {
     return { status: 'ok' }
   })
 
-  Route.post("register", "AuthController.register");
-  Route.post("login", "AuthController.login");
+  Route.post("register", "AuthController.register")
+  Route.post("login", "AuthController.login")
+
+  Route.resource('categories', 'CategoryController').apiOnly()
+  Route.resource('drinks', 'DrinkController').apiOnly()
 
   Route.group(() => {
-    Route.get("categories", "CategoriesController.index");
-    Route.get("categories/:id", "CategoriesController.show");
-    Route.put("categories/update", "CategoriesController.update");
-    Route.post("categories", "CategoriesController.store");
-  }).middleware("auth:api");
-
-}).prefix("api");
+    Route.get('favorites', 'FavoriteController.index')
+    Route.post('favorites', 'FavoriteController.store')
+    Route.delete('favorites/:id', 'FavoriteController.destroy')
+  }).middleware("auth:api")
+}).prefix("api/v1/");
