@@ -20,10 +20,19 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { status: 'ok' }
-})
+Route.group(() => {
+  Route.get('/', async () => {
+    return { status: 'ok' }
+  })
 
-Route.get('/categories', async () => {
-  return { hello: 'world' }
-})
+  Route.post("register", "AuthController.register");
+  Route.post("login", "AuthController.login");
+
+  Route.group(() => {
+    Route.get("categories", "CategoriesController.index");
+    Route.get("categories/:id", "CategoriesController.show");
+    Route.put("categories/update", "CategoriesController.update");
+    Route.post("categories", "CategoriesController.store");
+  }).middleware("auth:api");
+
+}).prefix("api");
