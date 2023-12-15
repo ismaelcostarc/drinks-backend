@@ -1,0 +1,47 @@
+/drinks:
+  get:
+    tags:
+      - Drinks
+    security: []
+    description: Drinks
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+
+/drinks/:id:
+  get:
+    tags:
+      - Drinks
+    security: []
+    description: Drink by id
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
+
+/categories/:categoryId/drinks:
+  get:
+    tags:
+      - Drinks
+    security: []
+    description: Drinks by Category
+    parameters:
+      - in: path
+        name: categoryId
+        schema:
+          type: integer
+        required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success

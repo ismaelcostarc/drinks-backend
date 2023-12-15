@@ -1,0 +1,11 @@
+/categories:
+  get:
+    tags:
+      - Categories
+    security: []
+    description: Categories
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success

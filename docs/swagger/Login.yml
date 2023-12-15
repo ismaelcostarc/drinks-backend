@@ -1,0 +1,24 @@
+/login:
+  post:
+    tags:
+      - Auth
+    security: []
+    description: Login
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email: 
+                type: string
+                example: 'teste@gmail.com'
+              password: 
+                type: string
+                example: '12345'
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
