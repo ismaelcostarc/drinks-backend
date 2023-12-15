@@ -21,14 +21,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', async () => {
-    return { status: 'ok' }
-  })
-
   Route.post("/register", "AuthController.register")
   Route.post("/login", "AuthController.login")
 
   Route.resource('/categories', 'CategoriesController').apiOnly()
+  Route.get('/categories/:categoryId/drinks', 'DrinkController.getByCategory');
+
   Route.resource('/drinks', 'DrinksController').apiOnly()
 
   Route.group(() => {
