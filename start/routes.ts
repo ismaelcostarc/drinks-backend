@@ -24,10 +24,10 @@ Route.group(() => {
   Route.post("/register", "AuthController.register")
   Route.post("/login", "AuthController.login")
 
-  Route.resource('/categories', 'CategoriesController').apiOnly()
-  Route.get('/categories/:categoryId/drinks', 'DrinkController.getByCategory');
-
-  Route.resource('/drinks', 'DrinksController').apiOnly()
+  Route.get('/categories', 'CategoriesController.index')
+  Route.get('/categories/:categoryId/drinks', 'DrinksController.getByCategory');
+  Route.get('/drinks', 'DrinksController.index')
+  Route.get('/drinks/:id', 'DrinksController.show')
 
   Route.group(() => {
     Route.get('/favorites', 'FavoritesController.index')
