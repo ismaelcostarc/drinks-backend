@@ -22,3 +22,17 @@
     responses:
       200:
         description: Success
+        content:
+          json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: 'bearer'
+                token:
+                  type: string
+                  example: 'MQ.u-ouhSHrhl3fxfIUcpN3NArnzqo-fye_m9'
+                expires_at:
+                  type: string
+                  example: '2023-12-26T02:17:53.507+00:0'

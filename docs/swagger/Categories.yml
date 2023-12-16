@@ -9,3 +9,25 @@
     responses:
       200:
         description: Success
+        content:
+          json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id: 
+                    type: string
+                    example: '1'
+                  name: 
+                    type: string
+                    example: 'Vinhos'
+                  description: 
+                    type: string
+                    example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                  created_at: 
+                    type: string
+                    example: '2023-12-16T02:17:49.951+00:00'
+                  updated_at: 
+                    type: string
+                    example: '2023-12-16T02:17:49.951+00:00'

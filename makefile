@@ -11,11 +11,10 @@ build:
 	@echo "$(YELLOW)Running migrations...$(RESET)"
 	@node ace migration:run
 	@node ace db:seed
-	${MAKE} serve
 
 serve:
 	@echo "$(YELLOW)Starting containers...$(RESET)"
-	@docker-compose -f docker-compose.yml up -d
+	@docker-compose -f docker-compose.yml up
 
 stop:
 	@echo "$(YELLOW)Stopping containers...$(RESET)"

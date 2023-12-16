@@ -1,0 +1,80 @@
+paths:
+  /favorites:
+    get:
+      tags:
+        - Favorites
+      security:
+        - BearerAuth: []
+      description: Favorites drinks of the logged user
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          content:
+            json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: 
+                      type: string
+                      example: '1'
+                    name: 
+                      type: string
+                      example: 'Cerveja'
+                    description: 
+                      type: string
+                      example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                    category_id: 
+                      type: string
+                      example: '1'
+                    created_at: 
+                      type: string
+                      example: '2023-12-16T02:17:49.951+00:00'
+                    updated_at: 
+                      type: string
+                      example: '2023-12-16T02:17:49.951+00:00'
+
+    post:
+      tags:
+        - Favorites
+      security:
+        - BearerAuth: []
+      description: Add favorite drink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                drink_id: 
+                  type: string
+                  example: '1'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+
+
+/favorites/:id:
+  delete:
+    tags:
+      - Favorites
+    security:
+      - BearerAuth: []
+    description: Delete favorite
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
