@@ -10,6 +10,7 @@ build:
 	@cp .env.example .env
 	@echo "$(YELLOW)Running migrations...$(RESET)"
 	@node ace migration:run
+	@node ace db:seed
 	${MAKE} serve
 
 serve:
