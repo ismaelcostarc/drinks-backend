@@ -2,12 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drink from 'App/Models/Drink';
 
 export default class DrinksController {
-  public async index({ request }: HttpContextContract) {
+  public async index() {
     const drinks = await Drink.query();
     return drinks
   }
 
-  public async show({ request, params }: HttpContextContract) {
+  public async show({ params }: HttpContextContract) {
     try {
       const drink = await Drink.find(params.id);
       if (drink) {
@@ -28,7 +28,7 @@ export default class DrinksController {
       return response.badRequest({ message: 'Erro ao buscar as bebidas da categoria.' });
     }
   }
-
+/* 
   public async update({ auth, request, params }: HttpContextContract) {
     const drink = await Drink.find(params.id);
     if (drink) {
@@ -56,5 +56,5 @@ export default class DrinksController {
     const user = await auth.authenticate();
     const drink = await Drink.query().where('id', params.id).delete();
     return response.json({ message: "Deleted successfully" })
-  }
+  } */
 }

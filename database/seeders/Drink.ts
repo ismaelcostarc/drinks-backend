@@ -1,4 +1,3 @@
-import Factory from '@ioc:Adonis/Lucid/Factory'
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Drink from 'App/Models/Drink'
 
