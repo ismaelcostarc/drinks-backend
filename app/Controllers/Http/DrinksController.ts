@@ -2,9 +2,15 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drink from 'App/Models/Drink';
 
 export default class DrinksController {
-  public async index() {
-    const drinks = await Drink.query();
-    return drinks
+  public async index({ request }: HttpContextContract) {
+    const qs = request.qs()
+
+    if(qs.search) {
+      return await Drink.query()
+        .whereRaw('LOWER(name) LIKE ?', [`%${qs.search.toLowerCase()}%`])
+    }
+
+    return await Drink.query();
   }
 
   public async show({ params }: HttpContextContract) {
