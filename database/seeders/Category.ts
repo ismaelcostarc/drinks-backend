@@ -6,15 +6,15 @@ export default class extends BaseSeeder {
     await Category.createMany([
       {
         name: 'Whisky',
-        description: '...',
+        description: 'O uísque é uma bebida rigorosamente regulamentada; possui denominações de origem e várias classes e tipos.',
       },
       {
-        name: 'Cachaça',
-        description: '...'
+        name: 'Cerveja',
+        description: 'A cerveja é uma bebida produzida a partir da fermentação de cereais, principalmente a cevada maltada.'
       },
       {
         name: 'Vodka',
-        description: '...'
+        description: 'Vodca é uma popular bebida destilada, incolor, quase sem sabor e com um teor alcoólico entre 35 e 60%.'
       },
     ])
   }
