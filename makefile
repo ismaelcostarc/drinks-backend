@@ -8,13 +8,15 @@ build:
 	@npm install
 	@echo "$(YELLOW)Copying .env...$(RESET)"
 	@cp .env.example .env
+	@echo "$(YELLOW)Starting containers...$(RESET)"
+	@docker-compose -f docker-compose.yml up -d
 	@echo "$(YELLOW)Running migrations...$(RESET)"
 	@node ace migration:run
 	@node ace db:seed
 
 serve:
 	@echo "$(YELLOW)Starting containers...$(RESET)"
-	@docker-compose -f docker-compose.yml up
+	@docker-compose -f docker-compose.yml up -d
 
 stop:
 	@echo "$(YELLOW)Stopping containers...$(RESET)"
