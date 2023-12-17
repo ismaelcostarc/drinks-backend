@@ -44,4 +44,8 @@ export default class AuthController {
 
     return token.toJSON();
   }
+
+  public async currentUser({ auth, response }: HttpContextContract) {
+    return response.ok(auth.user)
+  }
 }

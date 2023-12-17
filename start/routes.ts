@@ -27,15 +27,17 @@ Route.get('/', () => {
 })
 
 Route.group(() => {
-  Route.post("/register", "AuthController.register")
-  Route.post("/login", "AuthController.login")
+  Route.post("/auth/register", "AuthController.register")
+  Route.post("/auth/login", "AuthController.login")
 
   Route.get('/categories', 'CategoriesController.index')
+  Route.get('/categories/:id', 'CategoriesController.show')
   Route.get('/categories/:categoryId/drinks', 'DrinksController.getByCategory');
   Route.get('/drinks', 'DrinksController.index')
   Route.get('/drinks/:id', 'DrinksController.show')
 
   Route.group(() => {
+    Route.get("/auth/current-user", "AuthController.currentUser")
     Route.get('/favorites', 'FavoritesController.index')
     Route.post('/favorites', 'FavoritesController.store')
     Route.delete('/favorites/:id', 'FavoritesController.destroy')
