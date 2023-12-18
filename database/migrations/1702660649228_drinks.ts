@@ -9,6 +9,7 @@ export default class extends BaseSchema {
 
       table.string('name').notNullable();
       table.string('description');
+      table.string('img_url');
       table.integer('category_id').unsigned().references('categories.id').onDelete('CASCADE');
 
       /**

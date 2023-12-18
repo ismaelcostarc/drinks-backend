@@ -13,6 +13,9 @@ export default class Drink extends BaseModel {
   public description: string;
 
   @column()
+  public imgUrl: string;
+
+  @column()
   public categoryId: number
 
   @belongsTo(() => Category)
