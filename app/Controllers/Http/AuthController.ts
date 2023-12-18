@@ -25,16 +25,19 @@ export default class AuthController {
     const newPostSchema = schema.create({
       email: schema.string(),
       password: schema.string(),
+      name: schema.string(),
     })
 
     const payload = await request.validate({ schema: newPostSchema })
 
     const email = payload.email
     const password = payload.password
+    const name = payload.name
 
     const user = new User();
     user.email = email;
     user.password = password;
+    user.name = name
 
     await user.save();
 
