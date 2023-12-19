@@ -2,23 +2,24 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drink from 'App/Models/Drink';
 
 export default class DrinksController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request, response }: HttpContextContract) {
     const qs = request.qs()
 
     if(qs.search) {
-      return await Drink.query()
+      const searchedDrinks = await Drink.query()
         .whereRaw('LOWER(name) LIKE ?', [`%${qs.search.toLowerCase()}%`])
+
+      return response.ok(searchedDrinks)
     }
 
-    return await Drink.query();
+    const drinks = await Drink.query();
+    return response.ok(drinks)
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params, response }: HttpContextContract) {
     try {
       const drink = await Drink.find(params.id);
-      if (drink) {
-        return drink
-      }
+      return response.ok(drink)
     } catch (error) {
       console.log(error)
     }
@@ -30,37 +31,8 @@ export default class DrinksController {
     try {
       const drinks = await Drink.query().where('category_id', categoryId);
       return response.ok(drinks);
-    } catch (error) {
-      return response.badRequest({ message: 'Erro ao buscar as bebidas da categoria.' });
+    } catch (_) {
+      return response.internalServerError();
     }
   }
-/* 
-  public async update({ auth, request, params }: HttpContextContract) {
-    const drink = await Drink.find(params.id);
-    if (drink) {
-      drink.name = request.input('name');
-      drink.description = request.input('description');
-
-      if (await drink.save()) {
-        return drink
-      }
-      return; // 422
-    }
-    return; // 401
-  }
-
-  public async store({ auth, request, response }: HttpContextContract) {
-    const user = await auth.authenticate();
-    const drink = new Drink();
-    drink.name = request.input('name');
-    drink.description = request.input('description');
-    await drink.save()
-    return drink
-  }
-
-  public async destroy({ response, auth, request, params }: HttpContextContract) {
-    const user = await auth.authenticate();
-    const drink = await Drink.query().where('id', params.id).delete();
-    return response.json({ message: "Deleted successfully" })
-  } */
 }
