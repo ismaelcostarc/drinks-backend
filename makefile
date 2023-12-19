@@ -26,8 +26,3 @@ stop:
 	@echo "$(YELLOW)Stopping containers...$(RESET)"
 	@docker-compose -f docker-compose.yml stop
 	@echo "$(GREEN)All done!$(RESET)"
-
-migrate:
-	@echo "$(YELLOW)Running migrations...$(RESET)"
-	@node ace migration:run
-	@echo "$(GREEN)All done!$(RESET)"
