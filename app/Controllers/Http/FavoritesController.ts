@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class FavoritesController {
   public async index({ auth, response }: HttpContextContract) {
@@ -9,8 +10,15 @@ export default class FavoritesController {
 
   public async store({ auth, request, response }: HttpContextContract) {
     const user = auth.user
-    const drinkId: string = request.input('drink_id')
-    const favorite = await user?.related('drinks').attach([drinkId])
+
+    const newPostSchema = schema.create({
+      drink_id: schema.string(),
+    })
+
+    const payload = await request.validate({ schema: newPostSchema })
+
+    const favorite = await user?.related('drinks').attach([payload.drink_id])
+
     return response.created(favorite)
   }
 

@@ -21,7 +21,7 @@ export default class DrinksController {
       const drink = await Drink.find(params.id);
       return response.ok(drink)
     } catch (error) {
-      console.log(error)
+      return response.internalServerError();
     }
   }
 

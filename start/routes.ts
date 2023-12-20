@@ -31,8 +31,7 @@ Route.group(() => {
   Route.post("/auth/login", "AuthController.login")
 
   Route.get('/categories', 'CategoriesController.index')
-  Route.get('/categories/:id', 'CategoriesController.show')
-  Route.get('/categories/:categoryId/drinks', 'DrinksController.getByCategory');
+  Route.get('/category/:categoryId/drinks', 'DrinksController.getByCategory');
   Route.get('/drinks', 'DrinksController.index')
   Route.get('/drinks/:id', 'DrinksController.show')
 
