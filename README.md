@@ -50,6 +50,12 @@ Se desejar subir o servidor em modo watch:
 make watch
 ```
 
+Para rodar os testes funcionais:
+
+```bash
+node ace test
+```
+
 ## Rotas
 
 |Método HTTP | Endpoint | Exige autenticação? |
@@ -73,3 +79,17 @@ Para visualizar a documentação da API no Swagger, suba o servidor da aplicaç�
 Diagrama das tabelas do banco:
 
 ![database-diagram](./assets/drinks-database.png)
+
+## Considerações
+
+#### Dificuldades
+
+- Tive dificuldades para separar a documentação do Swagger em diferentes arquivos. Quando eu separava e chamava no arquivo principal utilizando $ref, a documentação era gerada normalmente, porém os testes não conseguiam mais encontrar as especificações.
+
+- Não consegui fazer com o que a instalação do `node_modules` fosse feita exclusivamente dentro do Docker. Por algum motivo que não encontrei, apesar de ter o comando no Dockerfile para instalar, isso não acontece. Logo, é necessário ter node instalado na própria máquina para poder executar o projeto
+
+#### Pontos que podem ser desenvolvidos na API
+
+- Podem ser criados métodos nos controllers para criar e atualizar as categorias e bebidas, e a documentação e testes para essas novas rotas.
+
+- Os testes podem ser melhorados para cobrir mais casos possíveis, como erros, dado não encontrado, etc.
