@@ -3,11 +3,18 @@ import Drink from 'App/Models/Drink';
 
 export default class DrinksController {
   public async index({ request, response }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const pageSize = request.input('pageSize', 100)
+    const sortBy = request.input('sortBy', 'name')
+    const order = request.input('order', 'asc')
+
     const qs = request.qs()
 
     if (qs.search) {
       const searchedDrinks = await Drink.query()
         .whereRaw('LOWER(name) LIKE ?', [`%${qs.search.toLowerCase()}%`])
+        .orderBy(sortBy, order)
+        .paginate(page, pageSize)
 
       return response.ok({
         data: searchedDrinks, meta: {
@@ -16,11 +23,17 @@ export default class DrinksController {
       })
     }
 
-    const drinks = await Drink.query();
+    const drinks = await Drink.query()
+      .orderBy(sortBy, order)
+      .paginate(page, pageSize)
+
     return response.ok({
       data: drinks,
       meta: {
-        total: drinks.length
+        total: drinks.total,
+        perPage: pageSize,
+        page,
+        lastPage: drinks.lastPage,
       }
     })
   }
@@ -30,7 +43,7 @@ export default class DrinksController {
       const drink = await Drink.find(params.id);
 
       if (!drink) {
-        return response.notFound('Drink not found')
+        return response.notFound()
       }
 
       return response.ok({ data: drink })

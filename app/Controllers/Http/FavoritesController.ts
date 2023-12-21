@@ -2,10 +2,28 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class FavoritesController {
-  public async index({ auth, response }: HttpContextContract) {
+  public async index({ auth, response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const pageSize = request.input('pageSize', 100)
+    const sortBy = request.input('sortBy', 'name')
+    const order = request.input('order', 'asc')
+
     const user = auth.user
-    const favorites = await user?.related('drinks').query()
-    return response.ok({ data: favorites, meta: { total: favorites.length } })
+    const favorites = await user
+      ?.related('drinks')
+      .query()
+      .orderBy(sortBy, order)
+      .paginate(page, pageSize)
+
+    return response.ok({
+      data: favorites,
+      meta: {
+        total: favorites.total,
+        perPage: pageSize,
+        page,
+        lastPage: favorites.lastPage,
+      }
+    })
   }
 
   public async store({ auth, request, response }: HttpContextContract) {

@@ -2,11 +2,24 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Category from 'App/Models/Category';
 
 export default class CategoriesController {
-  public async index({ response }: HttpContextContract) {
-    const categories = await Category.query();
+  public async index({ response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const pageSize = request.input('pageSize', 100)
+    const sortBy = request.input('sortBy', 'name')
+    const order = request.input('order', 'asc')
+
+    const categories = await Category.query()
+      .orderBy(sortBy, order)
+      .paginate(page, pageSize)
+
     return response.ok({
-      data: categories,
-      total: categories.length
+      data: categories.toJSON(),
+      meta: {
+        total: categories.total,
+        perPage: pageSize,
+        page,
+        lastPage: categories.lastPage,
+      }
     })
   }
 
@@ -15,7 +28,7 @@ export default class CategoriesController {
       const category = await Category.find(params.id);
       
       if (!category) {
-        return response.notFound('Category not found')
+        return response.notFound()
       }
 
       return response.ok({

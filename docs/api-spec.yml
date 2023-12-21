@@ -197,6 +197,8 @@ paths:
                   updated_at: 
                     type: string
                     example: '2023-12-16T02:17:49.951+00:00'
+        404:
+          description: 'Not found'
   
   /api/v1/drinks:
     get:
@@ -306,6 +308,8 @@ paths:
       responses:
         204:
           description: No Content
+        404:
+          description: 'Not found'
         401:
           description: Unauthorized
           content:
