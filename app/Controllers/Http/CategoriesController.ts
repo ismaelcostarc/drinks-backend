@@ -4,23 +4,15 @@ import Category from 'App/Models/Category';
 export default class CategoriesController {
   public async index({ response, request }: HttpContextContract) {
     const page = request.input('page', 1)
-    const pageSize = request.input('pageSize', 100)
-    const sortBy = request.input('sortBy', 'name')
+    const pageSize = request.input('page-size', 100)
+    const sortBy = request.input('sort-by', 'name')
     const order = request.input('order', 'asc')
 
     const categories = await Category.query()
       .orderBy(sortBy, order)
       .paginate(page, pageSize)
 
-    return response.ok({
-      data: categories.toJSON(),
-      meta: {
-        total: categories.total,
-        perPage: pageSize,
-        page,
-        lastPage: categories.lastPage,
-      }
-    })
+    return response.ok(categories)
   }
 
   public async show({ params, response }: HttpContextContract) {

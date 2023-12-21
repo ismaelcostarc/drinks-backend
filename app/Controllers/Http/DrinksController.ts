@@ -4,8 +4,8 @@ import Drink from 'App/Models/Drink';
 export default class DrinksController {
   public async index({ request, response }: HttpContextContract) {
     const page = request.input('page', 1)
-    const pageSize = request.input('pageSize', 100)
-    const sortBy = request.input('sortBy', 'name')
+    const pageSize = request.input('page-size', 100)
+    const sortBy = request.input('sort-by', 'name')
     const order = request.input('order', 'asc')
 
     const qs = request.qs()
@@ -16,26 +16,14 @@ export default class DrinksController {
         .orderBy(sortBy, order)
         .paginate(page, pageSize)
 
-      return response.ok({
-        data: searchedDrinks, meta: {
-          total: searchedDrinks.length
-        }
-      })
+      return response.ok(searchedDrinks)
     }
 
     const drinks = await Drink.query()
       .orderBy(sortBy, order)
       .paginate(page, pageSize)
 
-    return response.ok({
-      data: drinks,
-      meta: {
-        total: drinks.total,
-        perPage: pageSize,
-        page,
-        lastPage: drinks.lastPage,
-      }
-    })
+    return response.ok(drinks)
   }
 
   public async show({ params, response }: HttpContextContract) {

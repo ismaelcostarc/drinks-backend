@@ -4,8 +4,8 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 export default class FavoritesController {
   public async index({ auth, response, request }: HttpContextContract) {
     const page = request.input('page', 1)
-    const pageSize = request.input('pageSize', 100)
-    const sortBy = request.input('sortBy', 'name')
+    const pageSize = request.input('page-size', 100)
+    const sortBy = request.input('sort-by', 'name')
     const order = request.input('order', 'asc')
 
     const user = auth.user
@@ -15,22 +15,14 @@ export default class FavoritesController {
       .orderBy(sortBy, order)
       .paginate(page, pageSize)
 
-    return response.ok({
-      data: favorites,
-      meta: {
-        total: favorites.total,
-        perPage: pageSize,
-        page,
-        lastPage: favorites.lastPage,
-      }
-    })
+    return response.ok(favorites)
   }
 
   public async store({ auth, request, response }: HttpContextContract) {
     const user = auth.user
 
     const newPostSchema = schema.create({
-      drink_id: schema.string(),
+      drink_id: schema.number(),
     })
 
     const payload = await request.validate({ schema: newPostSchema })
