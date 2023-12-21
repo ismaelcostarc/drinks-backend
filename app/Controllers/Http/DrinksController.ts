@@ -28,6 +28,11 @@ export default class DrinksController {
   public async show({ params, response }: HttpContextContract) {
     try {
       const drink = await Drink.find(params.id);
+
+      if (!drink) {
+        return response.notFound('Drink not found')
+      }
+
       return response.ok({ data: drink })
     } catch (error) {
       return response.internalServerError();

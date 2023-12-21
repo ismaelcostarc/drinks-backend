@@ -13,6 +13,11 @@ export default class CategoriesController {
   public async show({ params, response }: HttpContextContract) {
     try {
       const category = await Category.find(params.id);
+      
+      if (!category) {
+        return response.notFound('Category not found')
+      }
+
       return response.ok({
         data: category
       })
