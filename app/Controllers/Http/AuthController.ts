@@ -18,7 +18,7 @@ export default class AuthController {
       expiresIn: "10 days",
     });
 
-    return response.ok(token.toJSON())
+    return response.ok({ data: token.toJSON() })
   }
 
   public async register({ request, auth, response }: HttpContextContract) {
@@ -45,10 +45,10 @@ export default class AuthController {
       expiresIn: "10 days",
     });
 
-    return response.ok(token.toJSON())
+    return response.ok({ data: token.toJSON() })
   }
 
   public async currentUser({ auth, response }: HttpContextContract) {
-    return response.ok(auth.user)
+    return response.ok({ data: auth.user })
   }
 }
