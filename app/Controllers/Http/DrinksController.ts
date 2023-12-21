@@ -5,21 +5,30 @@ export default class DrinksController {
   public async index({ request, response }: HttpContextContract) {
     const qs = request.qs()
 
-    if(qs.search) {
+    if (qs.search) {
       const searchedDrinks = await Drink.query()
         .whereRaw('LOWER(name) LIKE ?', [`%${qs.search.toLowerCase()}%`])
 
-      return response.ok(searchedDrinks)
+      return response.ok({
+        data: searchedDrinks, meta: {
+          total: searchedDrinks.length
+        }
+      })
     }
 
     const drinks = await Drink.query();
-    return response.ok(drinks)
+    return response.ok({
+      data: drinks,
+      meta: {
+        total: drinks.length
+      }
+    })
   }
 
   public async show({ params, response }: HttpContextContract) {
     try {
       const drink = await Drink.find(params.id);
-      return response.ok(drink)
+      return response.ok({ data: drink })
     } catch (error) {
       return response.internalServerError();
     }
@@ -30,7 +39,11 @@ export default class DrinksController {
 
     try {
       const drinks = await Drink.query().where('category_id', categoryId);
-      return response.ok(drinks);
+      return response.ok({
+        data: drinks, meta: {
+          total: drinks.length
+        }
+      });
     } catch (_) {
       return response.internalServerError();
     }

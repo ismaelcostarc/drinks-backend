@@ -5,7 +5,7 @@ export default class FavoritesController {
   public async index({ auth, response }: HttpContextContract) {
     const user = auth.user
     const favorites = await user?.related('drinks').query()
-    return response.ok(favorites)
+    return response.ok({ data: favorites, meta: { total: favorites.length } })
   }
 
   public async store({ auth, request, response }: HttpContextContract) {

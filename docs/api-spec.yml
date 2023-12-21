@@ -15,25 +15,34 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id: 
-                      type: number
-                      example: '1'
-                    name: 
-                      type: string
-                      example: 'Vinhos'
-                    description: 
-                      type: string
-                      example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    created_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
-                    updated_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: number
+                          example: '1'
+                        name: 
+                          type: string
+                          example: 'Vinhos'
+                        description: 
+                          type: string
+                          example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                        created_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                        updated_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                  meta: 
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                        example: 10           
 
   /api/v1/auth/login:
     post:
@@ -156,29 +165,38 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id: 
-                      type: number
-                      example: 1
-                    name: 
-                      type: string
-                      example: 'Old Parr'
-                    description: 
-                      type: string
-                      example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    category_id: 
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: number
+                          example: 1
+                        name: 
+                          type: string
+                          example: 'Old Parr'
+                        description: 
+                          type: string
+                          example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                        category_id: 
+                            type: number
+                            example: 1
+                        created_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                        updated_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                  meta:
+                    type: object
+                    properties:
+                      total:
                         type: number
-                        example: 1
-                    created_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
-                    updated_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
-  
+                        example: 10
+
   /api/v1/category/{id}/drinks:
     get:
       tags:
@@ -191,41 +209,50 @@ paths:
             type: integer
           required: true
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id: 
-                      type: number
-                      example: 1
-                    name: 
-                      type: string
-                      example: 'Old Parr'
-                    description: 
-                      type: string
-                      example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    category_id: 
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: number
+                          example: 1
+                        name: 
+                          type: string
+                          example: 'Old Parr'
+                        description: 
+                          type: string
+                          example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                        category_id: 
+                            type: number
+                            example: 1
+                        created_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                        updated_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                  meta:
+                    type: object
+                    properties:
+                      total:
                         type: number
-                        example: 1
-                    created_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
-                    updated_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
+                        example: 10
   
   /api/v1/favorites/{id}:
     delete:
       tags:
         - Favorites
+      summary: Delete a favorite drink
       security:
         - BearerAuth: []
-      description: Delete favorite
       parameters:
         - in: path
           name: id
@@ -234,7 +261,7 @@ paths:
           required: true
       responses:
         204:
-          description: Success
+          description: No Content
   
   /api/v1/favorites:
     get:
@@ -244,33 +271,42 @@ paths:
         - BearerAuth: []
       summary: Favorites drinks of the logged user
       responses:
-        200:
-          description: OK
+        '200':
+          description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id: 
-                      type: number
-                      example: 1
-                    name: 
-                      type: string
-                      example: 'Cerveja'
-                    description: 
-                      type: string
-                      example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    category_id: 
-                      type: number
-                      example: 1
-                    created_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
-                    updated_at: 
-                      type: string
-                      example: '2023-12-16T02:17:49.951+00:00'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: number
+                          example: 1
+                        name: 
+                          type: string
+                          example: 'Old Parr'
+                        description: 
+                          type: string
+                          example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                        category_id: 
+                            type: number
+                            example: 1
+                        created_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                        updated_at: 
+                          type: string
+                          example: '2023-12-16T02:17:49.951+00:00'
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                        example: 10
 
     post:
       tags:
