@@ -10,7 +10,7 @@ paths:
         - Categories
       summary: Return a list of categories
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -63,7 +63,7 @@ paths:
                   type: string
                   example: '12345'
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -82,14 +82,14 @@ paths:
                       expires_at:
                         type: string
                         example: '2023-12-26T02:17:53.507+00:0'
-        '400':
+        400:
           description: Invalid credentials
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  errors:
                     type: array
                     items:
                       type: object
@@ -97,14 +97,14 @@ paths:
                         message:
                           type: string
                           example: 'required validation failed"'
-        '422':
+        422:
           description: Missing required fields
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  errors:
                     type: array
                     items:
                       type: object
@@ -125,7 +125,7 @@ paths:
         - Auth
       summary: Current user logged
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -144,6 +144,21 @@ paths:
                   updated_at: 
                     type: string
                     example: '2023-12-16T02:17:49.951+00:00'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: 'E_UNAUTHORIZED_ACCESS: Unauthorized access"'
 
   /api/v1/drinks/{id}:
     get:
@@ -157,7 +172,7 @@ paths:
             type: integer
           required: true
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -189,7 +204,7 @@ paths:
         - Drinks
       summary: Drinks
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -238,7 +253,7 @@ paths:
             type: integer
           required: true
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -291,6 +306,21 @@ paths:
       responses:
         204:
           description: No Content
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: 'E_UNAUTHORIZED_ACCESS: Unauthorized access"'
   
   /api/v1/favorites:
     get:
@@ -300,7 +330,7 @@ paths:
         - BearerAuth: []
       summary: Favorites drinks of the logged user
       responses:
-        '200':
+        200:
           description: Success
           content:
             application/json:
@@ -336,6 +366,21 @@ paths:
                       total:
                         type: number
                         example: 10
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: 'E_UNAUTHORIZED_ACCESS: Unauthorized access"'
 
     post:
       tags:
@@ -386,7 +431,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  errors:
                     type: array
                     items:
                       type: object
@@ -400,3 +445,18 @@ paths:
                         message:
                           type: string
                           example: 'required validation failed"'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: 'E_UNAUTHORIZED_ACCESS: Unauthorized access"'
